@@ -1,0 +1,25 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <%= render "#{@order.current_step}_step" , :f => f  %>
+ <%#= render :partial => 'billing_step' , :locals => { :f => f }%>
+ <%#= render :partial => 'confirmation_step' %>
+
+ <div class="actions">
+    <p><%= f.submit "continue" %></p>
+    <p><%= f.submit "back" , :name => "back_button" unless @order.first_step? %></p>
+  </div>
+<% end %>
+
+  
+
